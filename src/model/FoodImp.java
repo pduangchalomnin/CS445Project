@@ -34,7 +34,7 @@ public class FoodImp extends Food {
 		this.last_modified_date = Integer.valueOf(dateFormat.format(date));
 	}
 
-	public void updatePrice(double pricePerPerson) {
+	public void updatePrice_per_person(double pricePerPerson) {
 		this.price_per_person = pricePerPerson;
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 		Date date = new Date();
@@ -60,9 +60,9 @@ public class FoodImp extends Food {
 			return true;
 		else if(Integer.toString(id).matches(keyword))
 			return true;
-		else if(Double.toString(price_per_person).matches(keyword))
+		else if(Double.toString(price_per_person).equals(keyword))
 			return true;
-		else if(Integer.toString(minimum_order).matches(keyword))
+		else if(Integer.toString(minimum_order).equals(keyword))
 			return true;
 		else if(Integer.toString(create_date).matches(keyword))
 			return true;
@@ -70,7 +70,7 @@ public class FoodImp extends Food {
 			return true;
 		for(int i=0;i<catagories.length;i++)
 		{
-			if(catagories.toString().matches(keyword))
+			if(catagories[0].toString().matches(keyword))
 				return true;
 		}
 		return false;

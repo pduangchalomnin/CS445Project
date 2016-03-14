@@ -13,7 +13,7 @@ public abstract class Food {
 	
 	public abstract void updateDeatail(String name,Double price_per_person,int minimum_order,Catagory catagories[]);
 	public abstract void updateName(String name);
-	public abstract  void updatePrice(double pricePerPerson);
+	public abstract  void updatePrice_per_person(double pricePerPerson);
 	public abstract void updateMinimumOrder(int minimum);
 	public abstract void updateCatagories(Catagory catagories[]);
 	public abstract boolean isMatch(String keyword);
