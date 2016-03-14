@@ -56,21 +56,16 @@ public class FoodImp extends Food {
 	}
 
 	public boolean isMatch(String keyword) {
-		if(this.name.matches(keyword))
-			return true;
-		else if(Integer.toString(id).matches(keyword))
-			return true;
-		else if(Double.toString(price_per_person).equals(keyword))
-			return true;
-		else if(Integer.toString(minimum_order).equals(keyword))
-			return true;
-		else if(Integer.toString(create_date).matches(keyword))
-			return true;
-		else if(Integer.toString(last_modified_date).matches(keyword))
+		if(this.name.matches(keyword) 
+				|| Integer.toString(id).matches(keyword)
+				|| Double.toString(price_per_person).equals(keyword)
+				|| Integer.toString(minimum_order).equals(keyword)
+				|| Integer.toString(create_date).matches(keyword)
+				|| Integer.toString(last_modified_date).matches(keyword))
 			return true;
 		for(int i=0;i<catagories.length;i++)
 		{
-			if(catagories[0].toString().matches(keyword))
+			if(catagories[1].toString().matches(keyword))
 				return true;
 		}
 		return false;
