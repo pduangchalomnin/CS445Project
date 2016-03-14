@@ -14,7 +14,7 @@ public class FoodImp extends Food {
 		this.catagories = catagories;
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 		Date date = new Date();
-		this.create_date = this.last_modified_date = Integer.parseInt(dateFormat.format(date));
+		this.create_date = this.last_modified_date = Integer.valueOf(dateFormat.format(date));
 	}
 	
 	public void updateDeatail(String name,Double price_per_person,int minimum_order,Catagory catagories[]) {
@@ -24,35 +24,35 @@ public class FoodImp extends Food {
 		this.catagories = catagories;
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 		Date date = new Date();
-		this.last_modified_date = Integer.parseInt(dateFormat.format(date));
+		this.last_modified_date = Integer.valueOf(dateFormat.format(date));
 	}
 
 	public void updateName(String name) {
 		this.name = name;
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 		Date date = new Date();
-		this.last_modified_date = Integer.parseInt(dateFormat.format(date));
+		this.last_modified_date = Integer.valueOf(dateFormat.format(date));
 	}
 
 	public void updatePrice(double pricePerPerson) {
 		this.price_per_person = pricePerPerson;
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 		Date date = new Date();
-		this.last_modified_date = Integer.parseInt(dateFormat.format(date));
+		this.last_modified_date = Integer.valueOf(dateFormat.format(date));
 	}
 
 	public void updateMinimumOrder(int minimum) {
 		this.minimum_order = minimum;
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 		Date date = new Date();
-		this.last_modified_date = Integer.parseInt(dateFormat.format(date));
+		this.last_modified_date = Integer.valueOf(dateFormat.format(date));
 	}
 
 	public void updateCatagories(Catagory[] catagories) {
 		this.catagories = catagories;
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 		Date date = new Date();
-		this.last_modified_date = Integer.parseInt(dateFormat.format(date));
+		this.last_modified_date = Integer.valueOf(dateFormat.format(date));
 	}
 
 	public boolean isMatch(String keyword) {
