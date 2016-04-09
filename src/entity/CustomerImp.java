@@ -1,4 +1,4 @@
-package model;
+package entity;
 
 public class CustomerImp implements Customer {
 
@@ -31,7 +31,7 @@ public class CustomerImp implements Customer {
 	
 	public boolean isMatch(String keyword) {
 		//According to requirement, first name will not be search
-		if(this.lastName.matches(keyword)
+		if(this.lastName.matches("(.*)"+keyword+"(.*)")
 				|| this.email.equals(keyword)
 				|| this.phoneNumber.equals(keyword))
 			return true;

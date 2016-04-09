@@ -9,19 +9,21 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.Catagory;
-import model.Food;
-import model.FoodImp;
+import entity.Catagory;
+import entity.Food;
+import entity.FoodImp;
 
 public class FoodTest {
 
 	Food testFood;
+	Catagory[] catagory;
 	private static final double DELTA = 1e-15;
 
 
 	@Before
 	public void createFood(){
-		testFood = new FoodImp("testName", 2.99, 1, new Catagory[]{new Catagory("cat1"),new Catagory("cat2")});
+		catagory = new Catagory[]{new Catagory("cat1"),new Catagory("cat2")};
+		testFood = new FoodImp("testName", 2.99, 1, catagory);
 	}
 
 	@Test
@@ -40,8 +42,8 @@ public class FoodTest {
 	}
 
 	@Test
-	public void  testGetCatagories(){
-		assertArrayEquals(new Catagory[]{new Catagory("cat1"),new Catagory("cat2")}, testFood.getCatagories());
+	public void testGetCatagories(){
+		assertArrayEquals(catagory, testFood.getCatagories());
 	}
 
 	@Test
@@ -68,7 +70,7 @@ public class FoodTest {
 		assertEquals("changedName", testFood.getName());
 		assertEquals(3.99, testFood.getPrice_per_person(),DELTA);
 		assertEquals(2, testFood.getMinimum_order());
-		assertArrayEquals(new Catagory[]{new Catagory("newCat")}, testFood.getCatagories());
+		assertEquals("newCat", testFood.getCatagories()[0].toString());
 		assertEquals(Integer.parseInt(dateFormat.format(date)), testFood.getLast_modified_date());
 	}
 
@@ -108,13 +110,12 @@ public class FoodTest {
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 		Date date = new Date();
 		
-		assertArrayEquals(new Catagory[]{new Catagory("Cat3")}, testFood.getCatagories());
+		assertEquals("Cat3", testFood.getCatagories()[0].toString());
 		assertEquals(Integer.parseInt(dateFormat.format(date)), testFood.getLast_modified_date());
 	}
 
 	@Test
 	public void testIsMatchNamePartial(){
-		//TODO fix regex on isMatch()
 		assertTrue(testFood.isMatch("e"));
 	}
 	
@@ -149,7 +150,6 @@ public class FoodTest {
 		assertTrue(testFood.isMatch(dateFormat.format(date)));
 	}
 	
-	//TODO Find a solution to let us check last modifiedDate
 	@Test
 	public void testIsMatchLastModifiedDatePartial(){
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");

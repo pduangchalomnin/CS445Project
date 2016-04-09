@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.Catagory;
+import entity.Catagory;
 
 public class CatagoryTest {
 

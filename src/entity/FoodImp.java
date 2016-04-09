@@ -1,11 +1,20 @@
-package model;
+package entity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FoodImp extends Food {
+public class FoodImp implements Food {
 
+	static private int idCounter = 0;
+	private int id;
+	private String name;
+	private double price_per_person;
+	private int minimum_order;
+	private Catagory catagories[];
+	private int create_date;
+	private int last_modified_date;
+	
 	public FoodImp(String name,Double price_per_person,int minimum_order,Catagory catagories[]){
 		this.id = idCounter++;
 		this.name = name;
@@ -56,18 +65,49 @@ public class FoodImp extends Food {
 	}
 
 	public boolean isMatch(String keyword) {
-		if(this.name.matches(keyword) 
-				|| Integer.toString(id).matches(keyword)
+		if(this.name.matches("(.*)"+keyword+"(.*)") 
 				|| Double.toString(price_per_person).equals(keyword)
 				|| Integer.toString(minimum_order).equals(keyword)
-				|| Integer.toString(create_date).matches(keyword)
-				|| Integer.toString(last_modified_date).matches(keyword))
+				|| Integer.toString(create_date).matches("(.*)"+keyword+"(.*)")
+				|| Integer.toString(last_modified_date).matches("(.*)"+keyword+"(.*)"))
 			return true;
 		for(int i=0;i<catagories.length;i++)
 		{
-			if(catagories[1].toString().matches(keyword))
+			if(catagories[i].toString().matches("(.*)"+keyword+"(.*)"))
 				return true;
 		}
+		return false;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public double getPrice_per_person() {
+		return price_per_person;
+	}
+
+	public int getMinimum_order() {
+		return minimum_order;
+	}
+
+	public Catagory[] getCatagories() {
+		return catagories;
+	}
+
+	public int getCreate_date() {
+		return create_date;
+	}
+
+	public int getLast_modified_date() {
+		return last_modified_date;
+	}
+
+	public boolean isNil() {
 		return false;
 	}
 }

@@ -1,4 +1,4 @@
-package model;
+package entity;
 
 public interface Customer {
 	public String getFirstName();
