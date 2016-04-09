@@ -36,4 +36,9 @@ public class ItemTest {
 	public void testGetAmount() {
 		assertEquals(1.99*2, item.getAmount(),DELTA);
 	}
+	
+	@Test
+	public void testGetMinimumOrder() {
+		assertEquals(3, item.getItemMinimumOrder());
+	}
 }

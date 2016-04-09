@@ -63,7 +63,7 @@ public class OrderImp implements Order {
 		return orderDate;
 	}
 
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 
@@ -100,6 +100,10 @@ public class OrderImp implements Order {
 				|| this.status.toString().equals(keyword)
 				|| this.delivery_address.isMatch(keyword))
 			return true;
+		return false;
+	}
+
+	public boolean isNil() {
 		return false;
 	}
 

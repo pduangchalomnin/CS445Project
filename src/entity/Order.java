@@ -11,10 +11,12 @@ public interface Order {
 	public double getTotalAmount();
 	public String getDeliveryDate();
 	public String getOrderDate();
-	public int getID();
+	public int getId();
 	public Customer getCustomer();
 	public String getNote();
 	public List<Item> listItem();
 	public Address geteDeliveryAddress();
 	public boolean isMatch(String keyword);
+	public boolean isNil();
+	
 }

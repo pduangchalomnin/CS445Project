@@ -1,6 +1,7 @@
 package entity;
 
 public class Address {
+
 	private String houseNumber;
 	private String streetName;
 	private String city;
@@ -23,5 +24,25 @@ public class Address {
 		if(this.toString().matches("(.*)"+keyword+"(.*)"))
 			return true;
 		return false;
+	}
+	
+	public String getHouseNumber() {
+		return houseNumber;
+	}
+
+	public String getStreetName() {
+		return streetName;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public String getZipcode() {
+		return zipcode;
 	}
 }

@@ -18,4 +18,7 @@ public class Item {
 		return food.getPrice_per_person()*count;
 	}
 	
+	public int getItemMinimumOrder(){
+		return food.getMinimum_order();
+	}
 }
