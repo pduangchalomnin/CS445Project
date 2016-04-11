@@ -8,7 +8,7 @@ public interface OrdersList {
 	public Order getOrderById(int id);
 	public List<Order> getOrdersByDeliveryDate(String delivery_date);
 	public int createOrder(String delivery_date, Address delivery_address, Customer personal_info, String note,
-			List<Item> order_details);
+			List<Item> order_details,double surcharge);
 	public int checkExistingCustomer(String email);
 
 }

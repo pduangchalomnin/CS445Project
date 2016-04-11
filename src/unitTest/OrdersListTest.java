@@ -32,7 +32,7 @@ public class OrdersListTest {
 	public static void setup() {
 		itemList = new ArrayList<Item>();
 		itemList.add(new Item(food,1));
-		orderId = orders.createOrder("20151228", add, customer, "This is first order", itemList);
+		orderId = orders.createOrder("20151228", add, customer, "This is first order", itemList,0.00);
 	}
 	
 	@Test
@@ -41,7 +41,7 @@ public class OrdersListTest {
 		List<Item> itemList2 = new ArrayList<Item>();
 		itemList2.add(new Item(food2,2));
 
-		int orderId = orders.createOrder("20151212", add, customer, "this is test note", itemList2);
+		int orderId = orders.createOrder("20151212", add, customer, "this is test note", itemList2,0.00);
 		assertEquals("20151212", orders.getOrderById(orderId).getDeliveryDate());
 	}
 	

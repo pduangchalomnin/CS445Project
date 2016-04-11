@@ -42,9 +42,9 @@ public class CustomerTest {
 		List<Item> itemList;
 		itemList = new ArrayList<Item>();
 		itemList.add(new Item(food,1));
-		orderId1 = orders.createOrder("20151212", add, customer2, "This is first order", itemList);
+		orderId1 = orders.createOrder("20151212", add, customer2, "This is first order", itemList,0.00);
 		Customer customer3 = new CustomerImp("FistName2", "LastName", "312-333-4444", "testMember@ff.com");
-		orderId2 = orders.createOrder("20151212", add, customer3, "This is second order", itemList);
+		orderId2 = orders.createOrder("20151212", add, customer3, "This is second order", itemList,0.00);
 		Order order1 = orders.getOrderById(orderId1);
 		Order order2 = orders.getOrderById(orderId2);
 		

@@ -42,9 +42,9 @@ public class CustomerManagerTest {
 		List<Item> itemList;
 		itemList = new ArrayList<Item>();
 		itemList.add(new Item(food,2));
-		orderId1 = orders.createOrder("20161212", add1, customer1, "This is 1st order of John Doe", itemList);
-		orderId2 = orders.createOrder("20161212", add1_updated, customer1_updated, "This is 2nd order of John Doe", itemList);
-		orderId3 = orders.createOrder("20161212", add2, customer2, "This is 1st order of Bob Martin", itemList);
+		orderId1 = orders.createOrder("20161212", add1, customer1, "This is 1st order of John Doe", itemList,0.00);
+		orderId2 = orders.createOrder("20161212", add1_updated, customer1_updated, "This is 2nd order of John Doe", itemList,0.00);
+		orderId3 = orders.createOrder("20161212", add2, customer2, "This is 1st order of Bob Martin", itemList,0.00);
 		customerManager = CustomerManager.getInstance();
 	}
 	

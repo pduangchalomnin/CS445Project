@@ -54,10 +54,18 @@ public class ReportManager implements ReportBoundaryInterface {
 			while(it.hasNext()) {
 				Order tmpOrder = it.next();
 				int deliverDate = Integer.parseInt(tmpOrder.getDeliveryDate());
-				Long startDate = Long.parseLong(dateFormat.format(start_date));
-				Long endDate = Long.parseLong(dateFormat.format(end_date));
+				int startDate = 0;
+				int endDate = 0;
+				if(start_date != null) {
+					startDate = Integer.parseInt(dateFormat.format(start_date));
+				}
+				if(end_date != null) {
+					endDate = Integer.parseInt(dateFormat.format(end_date));
+				}
 				
-				if(deliverDate>=startDate && deliverDate<=endDate) {
+				if((start_date!=null && end_date!=null && deliverDate>=startDate && deliverDate<=endDate)
+						|| (start_date!=null && end_date==null && deliverDate>=startDate)
+						|| (start_date==null && end_date!=null && deliverDate<=endDate)) {
 					output.add(tmpOrder);
 				}
 			}
@@ -84,14 +92,21 @@ public class ReportManager implements ReportBoundaryInterface {
 		if(!end_date.isEmpty()) {
 			validateDateTime(end_date);
 		}
+		validateDateRange(start_date, end_date);
 		
 		OrdersList orders = OrdersListImp.getInstance();
 		Iterator<Order> it = orders.getOrders().iterator();
 		while(it.hasNext()) {
 			Order tmpOrder = it.next();
 			int deliverDate = Integer.parseInt(tmpOrder.getDeliveryDate());
-			int startDate = Integer.parseInt(start_date);
-			int endDate = Integer.parseInt(end_date);
+			int startDate = 0;
+			int endDate = 0;
+			if(!start_date.isEmpty()){
+				startDate= Integer.parseInt(start_date);
+			}
+			if(!end_date.isEmpty()) {
+				endDate = Integer.parseInt(end_date);
+			}
 			
 			if((!start_date.isEmpty() && !end_date.isEmpty() && deliverDate >= startDate && deliverDate <= endDate)
 				|| (!start_date.isEmpty() && end_date.isEmpty()	&& deliverDate >= startDate)
@@ -102,6 +117,12 @@ public class ReportManager implements ReportBoundaryInterface {
 		}
 		return report;
 	}
+
+		private void validateDateRange(String start_date, String end_date) throws RuntimeException {
+			if((!start_date.isEmpty() && !end_date.isEmpty()) && Integer.parseInt(start_date)>Integer.parseInt(end_date)) {
+				throw new RuntimeException();
+			}
+		}
 
 		private void addReportValue(RevenueReport report, Order tmpOrder) {
 			report.setFood_revenue(report.getFood_revenue()+tmpOrder.getTotalAmount());
@@ -140,6 +161,7 @@ public class ReportManager implements ReportBoundaryInterface {
 		if(!end_date.isEmpty()) {
 			validateDateTime(end_date);
 		}
+		validateDateRange(start_date, end_date);
 		Date startDate = formatStartDate(start_date);
 		Date endDate = formatEndDate(end_date);
 		List<Order> output = getOrderFromDate(startDate,endDate);
@@ -157,7 +179,7 @@ public class ReportManager implements ReportBoundaryInterface {
 				}
 			}
 			else {
-				output = new Date(Long.MIN_VALUE);
+				output = null;
 			}
 			return output;
 		}
@@ -173,7 +195,7 @@ public class ReportManager implements ReportBoundaryInterface {
 				}
 			}
 			else {
-				output = new Date(Long.MAX_VALUE);
+				output = null;
 			}
 			return output;
 		}

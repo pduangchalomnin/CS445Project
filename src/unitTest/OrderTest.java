@@ -72,11 +72,6 @@ public class OrderTest {
 		assertEquals(1.99, order.getTotalAmount(),DELTA);
 	}
 	
-	@Test
-	public void testGetTotalAmountWithSurcharge(){
-		Order order = new OrderImp(customer, "20161212", "this is test note", itemList, add, 5.00);
-		assertEquals(1.99+5.00,order.getTotalAmount(),DELTA);
-	}
 	
 	@Test
 	public void testGetDeriveryDate(){

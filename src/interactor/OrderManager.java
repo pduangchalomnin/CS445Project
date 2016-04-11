@@ -71,13 +71,13 @@ public class OrderManager implements OrderBoundaryInterface {
 		validateItems(order_details);
 		validateDeliveryDate(delivery_date);
 		
-		int orderId = orders.createOrder(delivery_date, delivery_address, personal_info, note, order_details);
-		applySurcharge(delivery_date, orderId);
+		int orderId = orders.createOrder(delivery_date, delivery_address, personal_info, note, order_details, calculateSurcharge(delivery_date));
+		
 		
 		return orderId;
 	}
 
-		private void applySurcharge(String delivery_date, int orderId) {
+		private double calculateSurcharge(String delivery_date) {
 			int year = Integer.parseInt(delivery_date.substring(0, 4));
 			int month = Integer.parseInt(delivery_date.substring(4,6));
 			int day = Integer.parseInt(delivery_date.substring(6));
@@ -85,10 +85,10 @@ public class OrderManager implements OrderBoundaryInterface {
 			calendar.set(year, month-1, day);
 			int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 			if(dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) {
-				Order order = getOrderById(orderId);
 				Menu menu = MenuImp.getInstance();
-				order.setSurcharge(menu.getSurcharge());
+				return menu.getSurcharge();
 			}
+			return 0.00;
 		}
 
 		private void validateDeliveryDate(String delivery_date) {

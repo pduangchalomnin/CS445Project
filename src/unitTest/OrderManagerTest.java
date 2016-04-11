@@ -39,7 +39,7 @@ public class OrderManagerTest {
 	public static void setup() {
 		itemList = new ArrayList<Item>();
 		itemList.add(new Item(food,2));
-		orderId = orders.createOrder("20161202", add, customer, "This is order manager test", itemList);
+		orderId = orders.createOrder("20161202", add, customer, "This is order manager test", itemList,0.0);
 	}
 	
 	@Test

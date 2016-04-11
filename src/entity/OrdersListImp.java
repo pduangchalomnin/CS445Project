@@ -43,8 +43,8 @@ public class OrdersListImp implements OrdersList {
 	}
 
 	public int createOrder(String delivery_date, Address delivery_address, Customer personal_info, String note,
-			List<Item> order_details) {
-		Order order = new OrderImp(personal_info, delivery_date, note, order_details, delivery_address, MenuImp.getInstance().getSurcharge());
+			List<Item> order_details,double surcharge) {
+		Order order = new OrderImp(personal_info, delivery_date, note, order_details, delivery_address, surcharge);
 		orders.add(order);
 		return order.getId();
 	}

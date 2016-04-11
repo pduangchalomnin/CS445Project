@@ -6,6 +6,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
   CustomerManagerTest.class,
+  ReportManagerTest.class,
   FoodTest.class,
   NullFoodTest.class,
   CatagoryTest.class,
@@ -16,9 +17,11 @@ import org.junit.runners.Suite;
   OrderTest.class,
   OrdersListTest.class,
   NullOrderTest.class,
+  
   AdminManagerTest.class,
   MenuManagerTest.class,
   OrderManagerTest.class,
+
   
 })
 public class TestSuit {   

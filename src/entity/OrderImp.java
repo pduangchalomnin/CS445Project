@@ -51,7 +51,6 @@ public class OrderImp implements Order {
 			total += item.getAmount();
 			
 		}
-		total += surcharge;
 		return total;
 	}
 
