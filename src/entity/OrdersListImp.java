@@ -63,5 +63,10 @@ public class OrdersListImp implements OrdersList {
 		}
 		return -1;
 	}
+	
+	//Test Purpose only
+	public void resetOrders() {
+		instance = new OrdersListImp();
+	}
 
 }

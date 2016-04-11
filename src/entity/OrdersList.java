@@ -10,5 +10,7 @@ public interface OrdersList {
 	public int createOrder(String delivery_date, Address delivery_address, Customer personal_info, String note,
 			List<Item> order_details,double surcharge);
 	public int checkExistingCustomer(String email);
+	//Test Purpose only
+	public void resetOrders();	
 
 }

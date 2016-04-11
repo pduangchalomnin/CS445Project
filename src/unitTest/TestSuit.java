@@ -17,12 +17,9 @@ import org.junit.runners.Suite;
   OrderTest.class,
   OrdersListTest.class,
   NullOrderTest.class,
-  
   AdminManagerTest.class,
   MenuManagerTest.class,
   OrderManagerTest.class,
-
-  
 })
 public class TestSuit {   
 } 
