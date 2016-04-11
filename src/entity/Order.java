@@ -7,6 +7,7 @@ public interface Order {
 	public void changeStatus(Status status);
 	public double getSurcharge();
 	public String getCustomerEmail();
+	public int getCustomerId();
 	public String getStatus();
 	public double getTotalAmount();
 	public String getDeliveryDate();
@@ -16,7 +17,9 @@ public interface Order {
 	public String getNote();
 	public List<Item> listItem();
 	public Address geteDeliveryAddress();
+	public void setSurcharge(double surcharge);
 	public boolean isMatch(String keyword);
+	public boolean isCustomerMatch(String keyword);
 	public boolean isNil();
 	
 }

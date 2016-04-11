@@ -82,6 +82,10 @@ public class OrderImp implements Order {
 	public double getSurcharge() {
 		return surcharge;
 	}
+	
+	public void setSurcharge(double surcharge) {
+		this.surcharge = surcharge;
+	}
 
 	public Address geteDeliveryAddress() {
 		return delivery_address;
@@ -91,7 +95,6 @@ public class OrderImp implements Order {
 		this.status = status;
 	}
 
-	@Override
 	public boolean isMatch(String keyword) {
 		if(this.deliveryDate.matches("(.*)"+keyword+"(.*)")
 				|| this.orderDate.matches("(.*)"+keyword+"(.*)")
@@ -105,6 +108,14 @@ public class OrderImp implements Order {
 
 	public boolean isNil() {
 		return false;
+	}
+
+	public int getCustomerId() {
+		return ordered_by.getId();
+	}
+
+	public boolean isCustomerMatch(String keyword) {
+		return this.ordered_by.isMatch(keyword);
 	}
 
 }

@@ -5,16 +5,21 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+  CustomerManagerTest.class,
   FoodTest.class,
   NullFoodTest.class,
   CatagoryTest.class,
+  CustomerTest.class,
   MenuTest.class,
   AddressTest.class,
   ItemTest.class,
   OrderTest.class,
+  OrdersListTest.class,
   NullOrderTest.class,
   AdminManagerTest.class,
-  MenuManagerTest.class
+  MenuManagerTest.class,
+  OrderManagerTest.class,
+  
 })
 public class TestSuit {   
 } 

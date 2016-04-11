@@ -73,6 +73,12 @@ public class AdminManagerTest {
 		admin.editFoodInMenu(foodId, 1.00);
 		assertEquals(1.00, food.getPrice_per_person(),DELTA);
 	}
+	
+	@Test
+	public void testGetSurcharge() {
+		admin.changeSurcharge(5);
+		assertEquals(5, admin.getSurcharge(),DELTA);
+	}
 
 	@Test(expected = RuntimeException.class)
 	public void testChangeSurchargeInvalidPrice(){

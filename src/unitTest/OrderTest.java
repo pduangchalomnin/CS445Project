@@ -26,7 +26,7 @@ public class OrderTest {
 
 	
 	Catagory cat[] = new Catagory[]{ new Catagory("Cat1") };
-	Customer customer = new CustomerImp("FistName", "LastName", "312-333-4444", "testemail@email.com");
+	Customer customer = new CustomerImp("FirstName", "LastName", "312-333-4444", "testemail@email.com");
 	Address add = new Address("111", "S State St", "Chicago", "IL", "60616");
 	Food food = new FoodImp("Food1",1.99,1,cat);
 	List<Item> itemList;
@@ -49,6 +49,11 @@ public class OrderTest {
 	@Test
 	public void testGetEmail() {
 		assertEquals("testemail@email.com",order.getCustomerEmail());
+	}
+	
+	@Test
+	public void testGetId() {
+		assertEquals(customer.getId(),order.getCustomerId());
 	}
 	
 	@Test
@@ -132,5 +137,40 @@ public class OrderTest {
 	@Test
 	public void testIsMatchDeliveryAddress(){
 		assertTrue(order.isMatch("111"));
+	}
+	
+	@Test
+	public void testIsCustomerMatchNotMatch() {
+		assertFalse(order.isCustomerMatch("STRING THAT DOESN'T MATCH"));
+	}
+	
+	@Test
+	public void testIsCustomerMatchWithPartialFirstName() {
+		assertTrue(order.isCustomerMatch("first"));
+	}
+	
+	@Test
+	public void testIsCustomerMatchWithFullFirstName() {
+		assertTrue(order.isCustomerMatch("firstname"));
+	}
+	
+	@Test
+	public void testIsCustomerMatchWithPartialLastName() {
+		assertTrue(order.isCustomerMatch("last"));
+	}
+	
+	@Test
+	public void testIsCustomerMatchWithFullLastName() {
+		assertTrue(order.isCustomerMatch("lastname"));
+	}
+	
+	@Test
+	public void testIsCustomerMatchWithPhoneNumber() {
+		assertTrue(order.isCustomerMatch("312-333-4444"));
+	}
+	
+	@Test
+	public void testIsCustomerMatchWithEmail() {
+		assertTrue(order.isCustomerMatch("testemail@email.com"));
 	}
 }

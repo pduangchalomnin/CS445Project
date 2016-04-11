@@ -6,7 +6,7 @@ import entity.MenuImp;
 
 public class AdminManager implements AdminBoundaryInterface {
 	
-	public static AdminBoundaryInterface instance = null;
+	private static AdminBoundaryInterface instance = null;
 	private Menu menu = null;
 	
 	private AdminManager(){
@@ -42,10 +42,8 @@ public class AdminManager implements AdminBoundaryInterface {
 		}
 	}
 
-	@Override
 	public double getSurcharge() throws RuntimeException {
-		// TODO Auto-generated method stub
-		return 0;
+		return menu.getSurcharge();
 	}
 
 	public void changeSurcharge(double surcharge) throws RuntimeException {

@@ -100,4 +100,22 @@ public class NullOrder implements Order {
 		return true;
 	}
 
+	@Override
+	public int getCustomerId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean isCustomerMatch(String keyword) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setSurcharge(double surcharge) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

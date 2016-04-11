@@ -9,7 +9,7 @@ import entity.MenuImp;
 
 public class MenuManager implements MenuBoundaryInterface {
 
-	public static MenuBoundaryInterface instance = null;
+	private static MenuBoundaryInterface instance = null;
 	private Menu menu = MenuImp.getInstance();
 	
 	private MenuManager(){

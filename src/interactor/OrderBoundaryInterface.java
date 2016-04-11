@@ -16,6 +16,6 @@ public interface OrderBoundaryInterface {
 			,Customer personal_info
 			,String note
 			,List<Item> order_details) throws RuntimeException;
-	public Order getOrderById(int id);
-	public void cancleOrder(int id)throws RuntimeException;
+	public Order getOrderById(int id) throws RuntimeException;
+	public void cancelOrder(int id) throws RuntimeException;
 }

@@ -1,6 +1,9 @@
 package interactor;
 
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,19 +11,20 @@ import entity.Address;
 import entity.Customer;
 import entity.Food;
 import entity.Item;
+import entity.Menu;
 import entity.MenuImp;
-import entity.NullOrder;
 import entity.Order;
-import entity.OrderImp;
+import entity.OrdersList;
+import entity.OrdersListImp;
 import entity.Status;
 
 public class OrderManager implements OrderBoundaryInterface {
 
-	public static OrderBoundaryInterface instance;
-	private List<Order> orders;
+	private static OrderBoundaryInterface instance;
+	OrdersList orders;
 	
 	private OrderManager() {
-		orders = new ArrayList<Order>();
+		orders = OrdersListImp.getInstance();
 	}
 	
 	public static OrderBoundaryInterface getInstance(){
@@ -31,27 +35,29 @@ public class OrderManager implements OrderBoundaryInterface {
 	}
 	
 	public List<Order> getOrders() {
-		return orders;
+		return orders.getOrders();
 	}
 
 	public List<Order> getOrdersByDate(String delivery_date) throws RuntimeException {
-		List<Order> output = new ArrayList<Order>();
 		validateDateTime(delivery_date);
-		Iterator<Order> it = orders.iterator();
-		while(it.hasNext()) {
-			Order tmpOrder = it.next();
-			if(tmpOrder.getDeliveryDate().equals(delivery_date)) {
-				output.add(tmpOrder);
-			}
-		}
+		List<Order> output = orders.getOrdersByDeliveryDate(delivery_date);
 		return output;
 	}
 
 		private void validateDateTime(String delivery_date) throws RuntimeException {
-			int year = Integer.parseInt(delivery_date.substring(0, 3));
-			int month = Integer.parseInt(delivery_date.substring(4,5));
-			int day = Integer.parseInt(delivery_date.substring(6,7));
-			if(delivery_date.length() != 8 || month < 1 || month > 12 || day < 1 || day > 31 || year < 0){
+			int year = Integer.parseInt(delivery_date.substring(0, 4));
+			int month = Integer.parseInt(delivery_date.substring(4,6));
+			int day = Integer.parseInt(delivery_date.substring(6));
+			Calendar calendar = Calendar.getInstance();
+			
+			if(delivery_date.length() != 8) {
+				throw new RuntimeException();
+			}
+			calendar.set(Calendar.YEAR, year);
+			calendar.set(Calendar.MONTH, month-1);
+			int maxDay = calendar.getActualMaximum(Calendar.DATE);
+			
+			if(month < 1 || month > 12 || day < 1 || day > maxDay || year <= 0){
 				throw new RuntimeException();
 			}
 		}
@@ -63,10 +69,35 @@ public class OrderManager implements OrderBoundaryInterface {
 		validatePersonalInfo(personal_info);
 		validateDeliveryAddress(delivery_address);
 		validateItems(order_details);
-		Order order = new OrderImp(personal_info, delivery_date, note, order_details, delivery_address, MenuImp.getInstance().getSurcharge());
-		orders.add(order);
-		return order.getId();
+		validateDeliveryDate(delivery_date);
+		
+		int orderId = orders.createOrder(delivery_date, delivery_address, personal_info, note, order_details);
+		applySurcharge(delivery_date, orderId);
+		
+		return orderId;
 	}
+
+		private void applySurcharge(String delivery_date, int orderId) {
+			int year = Integer.parseInt(delivery_date.substring(0, 4));
+			int month = Integer.parseInt(delivery_date.substring(4,6));
+			int day = Integer.parseInt(delivery_date.substring(6));
+			Calendar calendar = Calendar.getInstance();
+			calendar.set(year, month-1, day);
+			int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+			if(dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) {
+				Order order = getOrderById(orderId);
+				Menu menu = MenuImp.getInstance();
+				order.setSurcharge(menu.getSurcharge());
+			}
+		}
+
+		private void validateDeliveryDate(String delivery_date) {
+			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+			Date date = new Date();
+			if(Integer.parseInt(delivery_date)<Integer.parseInt(dateFormat.format(date))) {
+				throw new RuntimeException();
+			}
+		}
 	
 		private void validateDeliveryAddress(Address delivery_address) throws RuntimeException {
 			if(delivery_address.getHouseNumber().length() == 0
@@ -83,7 +114,7 @@ public class OrderManager implements OrderBoundaryInterface {
 					+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 			if(personal_info.getFirstName().length() == 0
 					|| personal_info.getLastName().length() == 0
-					|| personal_info.getEmail().matches(email_regex_patern)
+					|| !personal_info.getEmail().matches(email_regex_patern)
 					|| personal_info.getPhoneNumber().length() == 0) {
 				throw new RuntimeException();
 			}
@@ -106,27 +137,33 @@ public class OrderManager implements OrderBoundaryInterface {
 			}
 		}
 
-	public Order getOrderById(int id) {
-		Iterator<Order> it = orders.iterator();
-		while(it.hasNext()) {
-			Order order = it.next();
-			if(order.getId() == id) {
-				return order;
-			}
-		}
-		return NullOrder.getinstance();
-	}
-
-	public void cancleOrder(int id) throws RuntimeException {
-		Iterator<Order> it = orders.iterator();
-		while(it.hasNext()) {
-			Order order = it.next();
-			if(order.getId() == id) {
-				order.changeStatus(Status.CANCELED);
-				return;
-			}
+	public Order getOrderById(int id) throws RuntimeException{
+		Order order = orders.getOrderById(id);
+		if(!order.isNil()) {
+			return order;
 		}
 		throw new RuntimeException();
 	}
+
+	public void cancelOrder(int id) throws RuntimeException {
+		Order order = orders.getOrderById(id);
+		if(!order.isNil()) {
+			if(checkIsDeliverToday(order)) {
+				throw new RuntimeException();
+			}
+			order.changeStatus(Status.CANCELED);
+			return;
+		}
+		throw new RuntimeException();
+	}
+
+		private boolean checkIsDeliverToday(Order order) {
+			DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+			Date date = new Date();
+			if(order.getDeliveryDate().equals(dateFormat.format(date))) {
+				return true;
+			}
+			return false;
+		}
 
 }
